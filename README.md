@@ -1,4 +1,4 @@
-# Slingshot
+# Slinkshot
 
 A new Flutter project.
 
