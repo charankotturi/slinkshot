@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:slingshot/post_page.dart';
 import 'package:slingshot/utils.dart';
 import 'package:slingshot/video_widget.dart';
 import 'package:video_player/video_player.dart';
@@ -51,7 +52,7 @@ class _HomePageState extends State<HomePage> {
             ),
             Row(
               children: [
-                Text('SlingShot', style: Theme.of(context).textTheme.headline6),
+                Text('SlinkShot', style: Theme.of(context).textTheme.headline6),
                 Expanded(child: Container()),
                 IconButton(icon: const Icon(Icons.archive), onPressed: () {}),
                 const SizedBox(
@@ -78,32 +79,13 @@ class _HomePageState extends State<HomePage> {
                   }),
             ),
             Expanded(
-                child: Container(
-              margin: const EdgeInsets.symmetric(vertical: 25),
-              child: Padding(
-                  padding: const EdgeInsets.all(5),
-                  child: Container(
-                    child: Center(
-                      child: PageView(
-                        controller: controller,
-                        scrollDirection: Axis.vertical,
-                        children: const [
-                          VideoWidget(
-                              looping: true,
-                              networkUrl:
-                                  'https://assets.mixkit.co/videos/preview/mixkit-a-girl-blowing-a-bubble-gum-at-an-amusement-park-1226-large.mp4'),
-                          VideoWidget(
-                              looping: true,
-                              networkUrl:
-                                  'https://www.pngmart.com/files/19/Darkrai-Transparent-Background.png')
-                        ],
-                      ),
-                    ),
-                    decoration: kInnerDecoration,
-                  )),
-              decoration: kGradientBoxDecoration(
-                  colors: [Colors.red.shade900, Colors.blue.shade900],
-                  isVerticalGrad: true),
+                child: PageView(
+              controller: controller,
+              scrollDirection: Axis.vertical,
+              children: [
+                for (var i = 0; i < imageAndVideoString.length; i++)
+                  PostWidget(networkUrl: imageAndVideoString[i])
+              ],
             ))
           ],
         ),

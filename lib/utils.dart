@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:slingshot/skin_model.dart';
 
 final imageList = [
   'https://www.pngmart.com/files/19/Darkrai-Transparent-Background.png',
@@ -13,6 +14,18 @@ final imageList = [
   'https://images.pngnice.com/download/2007/Legendary-Pokemon-Transparent-PNG.png',
 ];
 
+final skinsList = [
+  SkinModel(skinName: "Yveltal", skinID: 1, skinValue: 250),
+  SkinModel(skinName: "Kyurem", skinID: 2, skinValue: 300),
+  SkinModel(skinName: "Articuno", skinID: 3, skinValue: 900),
+  SkinModel(skinName: "Moltrus", skinID: 4, skinValue: 1000),
+  SkinModel(skinName: "Charizard", skinID: 5, skinValue: 250),
+  SkinModel(skinName: "Zapdos", skinID: 6, skinValue: 120),
+  SkinModel(skinName: "Solgaleo", skinID: 7, skinValue: 750),
+  SkinModel(skinName: "Giratina Y", skinID: 8, skinValue: 500),
+  SkinModel(skinName: "Dialga", skinID: 9, skinValue: 300),
+];
+
 final mainTags = [
   'All',
   'Followed',
@@ -24,6 +37,11 @@ final mainTags = [
   'game6',
   'game7',
   'game8'
+];
+
+final imageAndVideoString = [
+  'https://assets.mixkit.co/videos/preview/mixkit-a-girl-blowing-a-bubble-gum-at-an-amusement-park-1226-large.mp4',
+  'https://www.pngmart.com/files/19/Darkrai-Transparent-Background.png'
 ];
 
 final kInnerDecoration = BoxDecoration(

@@ -33,13 +33,21 @@ class _VideoWidgetState extends State<VideoWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return _controller != null && _controller!.value.isInitialized
-        ? AspectRatio(
-            aspectRatio: _controller!.value.aspectRatio,
-            child: VideoPlayer(_controller!),
-          )
-        : Image.network(widget.networkUrl,
-            height: MediaQuery.of(context).size.width / 2.2,
-            width: MediaQuery.of(context).size.width / 2.2);
+    return _controller != null
+        ? _controller!.value.isInitialized
+            ? AspectRatio(
+                aspectRatio: _controller!.value.aspectRatio,
+                child: VideoPlayer(_controller!),
+              )
+            : Image.network(
+                widget.networkUrl,
+                fit: BoxFit.fill,
+              )
+        : const Center(
+            child: Text(
+              'Some Error Has Occured while playing the video!',
+              textAlign: TextAlign.center,
+            ),
+          );
   }
 }
