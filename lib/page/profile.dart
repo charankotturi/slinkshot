@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:palette_generator/palette_generator.dart';
-import 'package:slingshot/single_skin_post.dart';
-import 'package:slingshot/status_model.dart';
-import 'utils.dart';
+import 'package:slingshot/models/status_model.dart';
+import 'package:slingshot/widgets/single_skin_post.dart';
+import '../utils.dart';
 
 class MyProfilePage extends StatefulWidget {
   const MyProfilePage({Key? key}) : super(key: key);

@@ -3,9 +3,9 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:palette_generator/palette_generator.dart';
-import 'package:slingshot/single_skin_post.dart';
-import 'package:slingshot/skin_model.dart';
+import 'package:slingshot/models/skin_model.dart';
 import 'package:slingshot/utils.dart';
+import 'package:slingshot/widgets/single_skin_post.dart';
 
 class SkinsPage extends StatefulWidget {
   const SkinsPage({Key? key}) : super(key: key);

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:slingshot/skin_model.dart';
+import 'package:slingshot/models/skin_model.dart';
 
 final imageList = [
   'https://www.pngmart.com/files/19/Darkrai-Transparent-Background.png',

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:palette_generator/palette_generator.dart';
-import 'package:slingshot/skin_model.dart';
+import 'package:slingshot/models/skin_model.dart';
 import 'package:slingshot/utils.dart';
 
 class SingleSkin extends StatefulWidget {

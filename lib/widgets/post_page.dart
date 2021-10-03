@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:slingshot/utils.dart';
 
-import 'utils.dart';
 import 'video_widget.dart';
 
 class PostWidget extends StatefulWidget {

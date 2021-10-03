@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:slingshot/home.dart';
-import 'package:slingshot/profile.dart';
-import 'package:slingshot/skins.dart';
+import 'package:slingshot/page/home.dart';
+import 'package:slingshot/page/profile.dart';
+import 'package:slingshot/page/skins.dart';
 
 void main() {
   runApp(const MyApp());

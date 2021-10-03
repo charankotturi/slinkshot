@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:slingshot/post_page.dart';
-import 'package:slingshot/profile.dart';
-import 'package:slingshot/skins.dart';
+import 'package:slingshot/page/profile.dart';
+import 'package:slingshot/page/skins.dart';
 import 'package:slingshot/utils.dart';
-import 'package:slingshot/video_widget.dart';
+import 'package:slingshot/widgets/post_page.dart';
 import 'package:video_player/video_player.dart';
 
 class HomePage extends StatefulWidget {
