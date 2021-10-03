@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:palette_generator/palette_generator.dart';
+import 'package:slingshot/single_skin_post.dart';
 import 'package:slingshot/status_model.dart';
 import 'utils.dart';
 
@@ -40,22 +42,12 @@ class _MyProfilePageState extends State<MyProfilePage>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: LayoutBuilder(
+    return LayoutBuilder(
       builder: (context, constrains) {
         return Center(
           child: ListView(
             children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 15.0, top: 5),
-                child: Align(
-                    alignment: Alignment.topLeft,
-                    child: IconButton(
-                      icon: const Icon(Icons.arrow_back),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                    )),
-              ),
+              SizedBox(height: 20),
               Padding(
                 padding:
                     const EdgeInsets.only(left: 30.0, bottom: 20, top: 10.0),
@@ -70,18 +62,6 @@ class _MyProfilePageState extends State<MyProfilePage>
               const SizedBox(
                 height: 15,
               ),
-              // Stack(
-              //   alignment: Alignment.center,
-              //   children: [
-              //     Icon(Icons.circle,
-              //         size: MediaQuery.of(context).size.width / 3.25),
-              //     Image.network(
-              //       imageList[3],
-              //       height: MediaQuery.of(context).size.width / 3,
-              //       width: MediaQuery.of(context).size.width / 3,
-              //     ),
-              //   ],
-              // ),
               Container(
                 margin: EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.width / 3),
@@ -176,37 +156,81 @@ class _MyProfilePageState extends State<MyProfilePage>
                         shrinkWrap: true,
                         crossAxisCount: 3,
                         children: List.generate(imageList.length, (index) {
-                          return Image.network(imageList[index],
-                              fit: BoxFit.cover);
+                          return Padding(
+                            padding: const EdgeInsets.all(2.0),
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return SingleSkin(
+                                      currentSkin: skinsList[index],
+                                      primaryColor:
+                                          PaletteColor(Colors.black12, 2),
+                                      isSkinPage: false);
+                                }));
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.black12,
+                                    borderRadius: BorderRadius.circular(5)),
+                                child: Image.network(imageList[index],
+                                    fit: BoxFit.cover),
+                              ),
+                            ),
+                          );
                         }),
                       ),
                     )
                   : Expanded(
                       child: ListView.builder(
-                          itemCount: imageList.length,
+                          itemCount: skinsList.length,
                           shrinkWrap: true,
                           physics: const ClampingScrollPhysics(),
                           itemBuilder: (context, index) {
                             return Padding(
                               padding: const EdgeInsets.all(10.0),
-                              child: Container(
-                                color: Colors.black,
-                                height: 250,
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      margin: const EdgeInsets.all(10),
-                                      height: 180,
-                                      child: Image.network(imageList[index],
-                                          fit: BoxFit.scaleDown),
-                                    ),
-                                    const Expanded(
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) {
+                                    return SingleSkin(
+                                      currentSkin: skinsList[index],
+                                      primaryColor:
+                                          PaletteColor(Colors.black12, 2),
+                                      isSkinPage: false,
+                                    );
+                                  }));
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.black12,
+                                      borderRadius: BorderRadius.circular(20)),
+                                  height: 250,
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        margin: const EdgeInsets.all(10),
+                                        height: 180,
+                                        child: Image.network(imageList[index],
+                                            fit: BoxFit.scaleDown),
+                                      ),
+                                      Expanded(
+                                          child: Container(
+                                        decoration: const BoxDecoration(
+                                            color: Colors.black12,
+                                            borderRadius: BorderRadius.only(
+                                                bottomLeft: Radius.circular(20),
+                                                bottomRight:
+                                                    Radius.circular(20))),
                                         child: Center(
-                                      child: Text('Post Name',
-                                          style:
-                                              TextStyle(color: Colors.white)),
-                                    ))
-                                  ],
+                                          child: Text(
+                                              '${skinsList[index].skinName} (post title)',
+                                              style: TextStyle(
+                                                  color: Colors.black)),
+                                        ),
+                                      ))
+                                    ],
+                                  ),
                                 ),
                               ),
                             );
@@ -216,7 +240,7 @@ class _MyProfilePageState extends State<MyProfilePage>
           ),
         );
       },
-    ));
+    );
   }
 }
 

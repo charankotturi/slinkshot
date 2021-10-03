@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:palette_generator/palette_generator.dart';
+import 'package:slingshot/single_skin_post.dart';
 import 'package:slingshot/skin_model.dart';
 import 'package:slingshot/utils.dart';
 
@@ -16,6 +17,13 @@ class SkinsPage extends StatefulWidget {
 class _SkinsPageState extends State<SkinsPage> {
   late TextEditingController _controller;
   List<SkinModel> skins = [];
+  bool isOwnedSelected = false;
+
+  _setFilterOption(bool isOwned) {
+    setState(() {
+      isOwnedSelected = isOwned;
+    });
+  }
 
   void onTextChange(String value) {
     skins = [];
@@ -38,8 +46,7 @@ class _SkinsPageState extends State<SkinsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Column(
+    return Column(
       children: [
         const SizedBox(height: 70),
         Padding(
@@ -54,6 +61,99 @@ class _SkinsPageState extends State<SkinsPage> {
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                 )),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  border: const Border(
+                    top: BorderSide(width: 1, color: Colors.black26),
+                    bottom: BorderSide(width: 1, color: Colors.black26),
+                    right: BorderSide(width: 1, color: Colors.black26),
+                    left: BorderSide(width: 1, color: Colors.black26),
+                  ),
+                ),
+                child: Row(children: [
+                  InkWell(
+                    onTap: () {
+                      _setFilterOption(false);
+                    },
+                    child: Container(
+                        margin:
+                            const EdgeInsets.only(top: 5, left: 5, bottom: 5),
+                        decoration: BoxDecoration(
+                          color: !isOwnedSelected
+                              ? Colors.black26
+                              : Colors.black26.withOpacity(0),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 5.0, vertical: 2),
+                          child: Text('Store'),
+                        )),
+                  ),
+                  const SizedBox(width: 10),
+                  InkWell(
+                    onTap: () {
+                      _setFilterOption(true);
+                    },
+                    child: Container(
+                        margin:
+                            const EdgeInsets.only(top: 5, bottom: 5, right: 5),
+                        decoration: BoxDecoration(
+                          color: isOwnedSelected
+                              ? Colors.black26
+                              : Colors.black26.withOpacity(0),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 5.0, vertical: 2),
+                          child: Text('Owned'),
+                        )),
+                  ),
+                ]),
+              ),
+              Expanded(child: Container()),
+              Column(
+                children: [
+                  Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        border: const Border(
+                          top: BorderSide(width: 1, color: Colors.black26),
+                          bottom: BorderSide(width: 1, color: Colors.black26),
+                          right: BorderSide(width: 1, color: Colors.black26),
+                          left: BorderSide(width: 1, color: Colors.black26),
+                        ),
+                      ),
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 5, vertical: 2),
+                        child: Row(children: [
+                          Icon(
+                            Icons.money,
+                            color: Colors.amber.shade300,
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Text('50')
+                        ]),
+                      )),
+                  const SizedBox(height: 5),
+                  Text('Available Slinkcoins',
+                      style: TextStyle(
+                          fontSize: 11, color: Colors.black.withOpacity(0.7)))
+                ],
+              )
+            ],
           ),
         ),
         skins.isNotEmpty || _controller.text.isNotEmpty
@@ -71,7 +171,7 @@ class _SkinsPageState extends State<SkinsPage> {
                           listSkins: skinsList,
                         ))),
       ],
-    ));
+    );
   }
 }
 
@@ -123,7 +223,14 @@ class _SkinCardState extends State<SkinCard> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return SingleSkin(
+            currentSkin: widget.listSkins[index],
+            primaryColor: colors[0],
+          );
+        }));
+      },
       child: Column(children: [
         Stack(
           children: [
@@ -150,7 +257,7 @@ class _SkinCardState extends State<SkinCard> {
                       children: [
                         Icon(
                           Icons.money_outlined,
-                          color: Colors.yellow.shade300,
+                          color: Colors.amber.shade300,
                         ),
                         const SizedBox(
                           width: 5,

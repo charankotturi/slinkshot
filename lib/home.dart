@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:slingshot/post_page.dart';
+import 'package:slingshot/profile.dart';
+import 'package:slingshot/skins.dart';
 import 'package:slingshot/utils.dart';
 import 'package:slingshot/video_widget.dart';
 import 'package:video_player/video_player.dart';
@@ -14,6 +16,47 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int _currentIndex = 0;
+
+  _currentIndexFun(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
+  List<Widget> pages = [
+    const HomepageInit(),
+    const SkinsPage(),
+    const MyProfilePage()
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: _currentIndexFun,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.shield_outlined), label: 'Skin'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.face_rounded), label: 'Profile')
+        ],
+      ),
+      body: pages[_currentIndex],
+    );
+  }
+}
+
+class HomepageInit extends StatefulWidget {
+  const HomepageInit({Key? key}) : super(key: key);
+
+  @override
+  _HomepageInitState createState() => _HomepageInitState();
+}
+
+class _HomepageInitState extends State<HomepageInit> {
   List<bool> isSelectedList = List.filled(mainTags.length, false);
   final PageController controller = PageController(initialPage: 0);
 
@@ -33,62 +76,51 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.shield_outlined), label: 'Skin'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.face_rounded), label: 'Profile')
+    return Padding(
+      padding: const EdgeInsets.only(right: 20.0, left: 20),
+      child: Column(
+        children: [
+          const SizedBox(
+            height: 70,
+          ),
+          Row(
+            children: [
+              Text('SlinkShot', style: Theme.of(context).textTheme.headline6),
+              Expanded(child: Container()),
+              IconButton(icon: const Icon(Icons.archive), onPressed: () {}),
+              const SizedBox(
+                width: 10,
+              ),
+              IconButton(icon: const Icon(Icons.send), onPressed: () {}),
+            ],
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          SizedBox(
+            height: 40,
+            child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: mainTags.length,
+                itemBuilder: (context, index) {
+                  return InkWell(
+                      onTap: () {
+                        _isSelected(index);
+                      },
+                      child: FilterCard(
+                          index: index, isSelected: isSelectedList[index]));
+                }),
+          ),
+          Expanded(
+              child: PageView(
+            controller: controller,
+            scrollDirection: Axis.vertical,
+            children: [
+              for (var i = 0; i < imageAndVideoString.length; i++)
+                PostWidget(networkUrl: imageAndVideoString[i])
+            ],
+          ))
         ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.only(right: 20.0, left: 20),
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 70,
-            ),
-            Row(
-              children: [
-                Text('SlinkShot', style: Theme.of(context).textTheme.headline6),
-                Expanded(child: Container()),
-                IconButton(icon: const Icon(Icons.archive), onPressed: () {}),
-                const SizedBox(
-                  width: 10,
-                ),
-                IconButton(icon: const Icon(Icons.send), onPressed: () {}),
-              ],
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            SizedBox(
-              height: 40,
-              child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: mainTags.length,
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                        onTap: () {
-                          _isSelected(index);
-                        },
-                        child: FilterCard(
-                            index: index, isSelected: isSelectedList[index]));
-                  }),
-            ),
-            Expanded(
-                child: PageView(
-              controller: controller,
-              scrollDirection: Axis.vertical,
-              children: [
-                for (var i = 0; i < imageAndVideoString.length; i++)
-                  PostWidget(networkUrl: imageAndVideoString[i])
-              ],
-            ))
-          ],
-        ),
       ),
     );
   }
